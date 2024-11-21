@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ item.title }}
+{% endblock %}
+
+{% block body %}
+    <div class="account-button-holder">
+        <button class="btn btn-primary" id="loginButton">Login</button>
+        <button class="btn btn-danger" id="logoutButton">Logout</button>
+    </div>
+    <article class="blog-post">
+        <h2 class="display-5 link-body-emphasis mb-1">{{ item.title }}</h2>
+        <p class="blog-post-meta">{{ item.insertDate }} by <a href="#">{{ item.author }}</a></p>
+
+        <p class="blog-post-content">{{ item.content }}</p>
+    </article>
+    <br>
+    <section class="content-item" id="comments">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <form id="commentForm">
+                        <h3 class="pull-left">New Comment</h3>
+                        <button type="submit" class="btn btn-normal pull-right" id="postComment" data-news-id="{{ item.id }}">Submit</button>
+                        <fieldset>
+                            <div class="row media">
+                                <div class="col-sm-3 col-lg-2 hidden-xs">
+                                    <img class="media-object" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-9 col-lg-10">
+                                    <input class="form-control" id="authorName" placeholder="Author Name">
+                                    <textarea class="form-control" id="message" placeholder="Your message" required=""></textarea>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                    {% for comment in item.comments %}
+                        <div class="media">
+                            <a class="pull-left" href="#"><img class="media-object" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""></a>
+                            <div class="media-body">
+                                <h4 class="media-heading">{{ comment.authorName }}</h4>
+                                <p>{{ comment.text }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    News
+{% endblock %}
+
+{% block body %}
+    <div class="account-button-holder">
+        <button class="btn btn-primary" id="loginButton">Login</button>
+        <button class="btn btn-danger" id="logoutButton">Logout</button>
+    </div>
+    <div class="news-block">
+        {% for instance in news %}
+            <div class="news-item">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative news-card">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <h3 class="mb-0">{{ instance.title }}</h3>
+                        <div class="mb-1 text-body-secondary">{{ instance.insertDate }}</div>
+                        <p class="card-text mb-auto">{{ instance.description }}</p>
+                        <a href="{{ path('news.show', { id: instance.id }) }}" class="icon-link gap-1 icon-link-hover stretched-link">
+                            Continue reading
+                            <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+                        </a>
+                    </div>
+                    <div class="col-auto d-none d-lg-block">
+                        <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <i class="fa fa-plus action-button" id="addNews" aria-hidden="true"></i>
+                    <i class="fa fa-pencil action-button" id="editNews" aria-hidden="true"></i>
+                    <i class="fa fa-trash action-button" id="deleteNews" aria-hidden="true" data-news-id="{{ instance.id }}"></i>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="modal" id="addNewsModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add news</h5>
+                </div>
+                <div class="modal-body">
+                    <input class="form-control" id="authorName" placeholder="Author Name">
+                    <input class="form-control" id="title" placeholder="Title">
+                    <input class="form-control" id="description" placeholder="Description">
+                    <textarea class="form-control" id="content" placeholder="News Content"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="saveNews">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
